@@ -1,0 +1,22 @@
+.nav-bg{
+    background: rgba(57 104 201);
+    padding: 0px;
+}
+
+.nav-brand{
+    width: 100px;
+}
+
+ul li a{
+    text-decoration: none !important;
+}
+
+.nav-items li a{
+    color: #fff;
+}
+
+
+.nav-items li a:hover{
+    color: #bfbfbf;
+}
+
