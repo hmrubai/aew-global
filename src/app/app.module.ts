@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +16,10 @@ import { DownloadComponent } from './home/download/download.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 import { HomePageLayoutComponent } from './layout/home-page-layout/home-page-layout.component';
-// import { PackageDetailsComponent } from './package-details/package-details.component';
+import { BlockUIModule } from 'ng-block-ui';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,12 +35,15 @@ import { HomePageLayoutComponent } from './layout/home-page-layout/home-page-lay
     DownloadComponent,
     FooterComponent,
     DefaultLayoutComponent,
-    HomePageLayoutComponent,
-    // PackageDetailsComponent
+    HomePageLayoutComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BlockUIModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

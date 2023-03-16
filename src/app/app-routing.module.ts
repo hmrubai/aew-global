@@ -18,6 +18,11 @@ const routes: Routes = [
         path: 'details',
         loadChildren: () => import('./package-details/package-details.module').then(m => m.PackageDetailsModule),
         // canActivate: [AuthGuard]
+      },
+      {
+        path: 'list',
+        loadChildren: () => import('./package-list/package-list.module').then(m => m.PackageListModule),
+        // canActivate: [AuthGuard]
       }
     ]
   }

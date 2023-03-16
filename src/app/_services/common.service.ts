@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
 export class CommonService {
   constructor(private http: HttpClient) { }
 
-  get(url, obj?: any) {
+  get(url?: any, obj?: any) {
     let params = new HttpParams();
     if (obj) {
       for (const key in obj) {
@@ -25,7 +25,7 @@ export class CommonService {
     );
   }
 
-  post(url, params) {
+  post(url?: any, params?: any) {
     return this.http.post<any>(environment.apiUrl + url, params).pipe(
       map(res => {
         return res;
@@ -33,7 +33,7 @@ export class CommonService {
     );
   }
 
-  put(url, params) {
+  put(url?: any, params?: any) {
     return this.http.put<any>(environment.apiUrl + url, params).pipe(
       map(res => {
         return res;
@@ -41,7 +41,7 @@ export class CommonService {
     );
   }
 
-  delete(url){
+  delete(url?: any){
     return this.http.delete(environment.apiUrl + url).pipe(
       map(res => {
         return res;
@@ -49,16 +49,16 @@ export class CommonService {
     );
   }
 
-  postMultipart(url, params) {
-    return this.http.post<any>(environment.apiUrl + url, params, {headers: {'Content-Type': undefined }}).pipe(
-      map(res => {
-        return res;
-      })
-    );
-  }
+  // postMultipart(url?: any, params?: any) {
+  //   return this.http.post<any>(environment.apiUrl + url, params, {headers: {'Content-Type': undefined }}).pipe(
+  //     map(res => {
+  //       return res;
+  //     })
+  //   );
+  // }
 
 
-  generateUrl(url: string = null): string {
+  generateUrl(url?: any): string {
     return environment.apiUrl + url;
   }
 
@@ -91,7 +91,7 @@ export class CommonService {
       );
   }
 
-  external_get(url, obj?: any) {
+  external_get(url?: any, obj?: any) {
     let params = new HttpParams();
     if (obj) {
       for (const key in obj) {
@@ -108,7 +108,7 @@ export class CommonService {
     );
   }
 
-  exparnal_post(url, params) {
+  exparnal_post(url?: any, params?: any) {
     return this.http.post<any>(url, params).pipe(
       map(res => {
         return res;
