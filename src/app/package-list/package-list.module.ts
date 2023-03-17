@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PackageListComponent } from './package-list.component';
 import { PackageListRoutingModule } from './package-list-routing.module';
 import { BlockUIModule } from 'ng-block-ui';
+import { TruncatePipe } from '../_helpers/truncate-pipe';
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { BlockUIModule } from 'ng-block-ui';
     PackageListRoutingModule,
     BlockUIModule
   ],
-  declarations: [PackageListComponent]
+  declarations: [PackageListComponent, TruncatePipe]
 })
 export class PackageListModule { }

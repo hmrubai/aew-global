@@ -17,6 +17,7 @@ import { FooterComponent } from './home/footer/footer.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 import { HomePageLayoutComponent } from './layout/home-page-layout/home-page-layout.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { TruncatePipe } from './_helpers/truncate-pipe';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -35,7 +36,8 @@ import { ToastrModule } from 'ngx-toastr';
     DownloadComponent,
     FooterComponent,
     DefaultLayoutComponent,
-    HomePageLayoutComponent
+    HomePageLayoutComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
