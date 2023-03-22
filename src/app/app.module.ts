@@ -17,10 +17,10 @@ import { FooterComponent } from './home/footer/footer.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 import { HomePageLayoutComponent } from './layout/home-page-layout/home-page-layout.component';
 import { BlockUIModule } from 'ng-block-ui';
-import { TruncatePipe } from './_helpers/truncate-pipe';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+// import { TruncatePipe } from './_helpers/truncate-pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     DefaultLayoutComponent,
     HomePageLayoutComponent,
-    TruncatePipe
+    // TruncatePipe
   ],
   imports: [
     BrowserModule,

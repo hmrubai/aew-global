@@ -15,13 +15,13 @@ const routes: Routes = [
     data: {},
     children: [
       {
-        path: 'details',
-        loadChildren: () => import('./package-details/package-details.module').then(m => m.PackageDetailsModule),
+        path: 'list',
+        loadChildren: () => import('./package-list/package-list.module').then(m => m.PackageListModule),
         // canActivate: [AuthGuard]
       },
       {
-        path: 'list',
-        loadChildren: () => import('./package-list/package-list.module').then(m => m.PackageListModule),
+        path: 'details/:id',
+        loadChildren: () => import('./package-details/package-details.module').then(m => m.PackageDetailsModule),
         // canActivate: [AuthGuard]
       }
     ]
