@@ -20,7 +20,7 @@
                             <small class="text-primary"><strong>Cycle: {{ item.cycle }} Days</strong></small>
                         </div>
                         <div class="col-md-3">
-                            <button class="btn btn-primary btn-sm details-button">Details</button>
+                            <button class="btn btn-primary btn-sm details-button" [routerLink]="['/package/details', item.id]">Details</button>
                         </div>
                     </div>
                 </div>

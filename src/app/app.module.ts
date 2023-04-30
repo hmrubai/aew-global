@@ -20,6 +20,7 @@ import { BlockUIModule } from 'ng-block-ui';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { TruncatePipe } from './_helpers/truncate-pipe';
 
 @NgModule({
@@ -46,6 +47,7 @@ import { ToastrModule } from 'ngx-toastr';
     BlockUIModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
