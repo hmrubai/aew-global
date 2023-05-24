@@ -68,3 +68,19 @@ h2 {
 }
 
 /* ******************* Card Header ******************* */
+
+.custom-form{
+    height: 37px !important;
+}
+
+.cus-margin{
+    margin-top: 39px;
+}
+
+.cus-padding{
+    padding: 6px 11px;
+}
+
+.items-title-padding{
+    padding: 4px;
+}

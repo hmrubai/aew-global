@@ -48,8 +48,67 @@
                             <td class="text-end text-primary"><em> {{ packageDetails.cycle }} Day(s) to complete </em></td>
                         </tr>
                     </table>
+                    <form [formGroup]="entryForm" class="form-horizontal">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="col-form-label" for="text-input">Syllebus</label>
+                                <ng-select [items]="syllebusList" bindLabel="name" 
+                                    bindValue="id" formControlName="syllebus_id" placeholder="Select Syllebus"
+                                    [ngClass]="{ 'is-invalid': submitted && f.syllebus_id.errors }" >
+                                </ng-select>
+                                <div *ngIf="submitted && f.syllebus_id.errors" class="error-text">
+                                    <span *ngIf="f.syllebus_id.errors.required" class="text-danger"> Syllebus is required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label" for="quantity">Quantity</label>
+                                <input type="number" formControlName="quantity" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" id="contact_no" class="form-control form-control-sm custom-form" placeholder="Contact No">
+                                <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                                <span *ngIf="f.quantity.errors.required" class="text-danger"> Quantity is required</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 cus-margin">
+                                <button class="btn btn-success btn-sm cus-padding" (click)="addItemToList()">Add</button>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                <div class="alert alert-info items-title-padding" role="alert">
+                                    <strong> <i class="bi bi-layout-text-window-reverse"></i> Items</strong>
+                                </div>
+                                <table class="table table-striped-columns">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Item</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col" class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of purchaseSyllebusList; let i = index;">
+                                            <th scope="row">{{ i+1 }}</th>
+                                            <td>{{ item.syllebus_name }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-danger btn-sm" (click)="deleteItemFromCart(item)"><i class="bi bi-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <!--<div class="form-group row mt-3">
+                            <label class="col-md-4 col-form-label" for="quantity">Quantity</label>
+                            <div class="col-md-8">
+                                <input type="number" formControlName="quantity" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" id="contact_no" class="form-control" placeholder="Contact No">
+                                <div *ngIf="submitted && f.quantity.errors" class="invalid-feedback">
+                                <span *ngIf="f.quantity.errors.required" class="text-danger"> Quantity is required</span>
+                                </div>
+                            </div>
+                        </div>-->
+                    </form>
                     <!--<p class="card-text">{{ packageDetails.promotion_details }}</p> -->
-                    <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-dark btn-sm">Go somewhere</a>
+                    <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-dark btn-sm mt-5">Go somewhere</a>
                 </div>
             </div>
         </div>

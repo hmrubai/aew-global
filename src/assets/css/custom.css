@@ -372,10 +372,10 @@ html {
   }
   
   /* Default btn sre-tyling */
-  .btn {
+  /* .btn {
     border: none;
     padding: 15px 30px !important;
-  }
+  } */
   
   .btn.btn-outline-white {
     border: 2px solid #fff;
