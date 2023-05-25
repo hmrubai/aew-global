@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from '../_services/common.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { environment } from '../../environments/environment';
 //import * as moment from 'moment';
 
@@ -30,6 +31,7 @@ export class PackageDetailsComponent implements OnInit {
         private toastr: ToastrService,
         public formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        public readonly swalTargets: SwalPortalTargets,
         private router: Router,
     ) {
         this.package_id = this.route.snapshot.paramMap.get("id");
@@ -62,7 +64,6 @@ export class PackageDetailsComponent implements OnInit {
 
             this.is_loaded = true;
             this.blockUI.stop();
-            //this.toastr.success('Hello world!', 'Toastr fun!');
         }, err => {
             this.blockUI.stop();
         });
@@ -78,10 +79,15 @@ export class PackageDetailsComponent implements OnInit {
         });
     }
 
-    addItemToList(){
-        
+    addItemToList()
+    {
         let syllebus = this.syllebusList.find(x => x.id === this.entryForm.value.syllebus_id);
         if(this.packageDetails.limit < this.entryForm.value.quantity){
+            this.toastr.error('Please, enter correct quantity!', 'Attention!');
+            return;
+        }
+
+        if(this.entryForm.value.quantity <= 0){
             this.toastr.error('Please, enter correct quantity!', 'Attention!');
             return;
         }
@@ -118,6 +124,14 @@ export class PackageDetailsComponent implements OnInit {
         console.log(row);
         const index = this.purchaseSyllebusList.findIndex(item => item.syllebus_id === row.syllebus_id);
         this.purchaseSyllebusList.splice(index, 1);
+    }
+
+    deleteFile(){
+
+    }
+
+    sendForm(){
+
     }
 
     

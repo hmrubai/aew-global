@@ -5,6 +5,7 @@ import { PackageDetailsComponent } from './package-details.component';
 import { PackageDetailsRoutingModule } from './package-details-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PackageDetailsRoutingModule,
     BlockUIModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    SweetAlert2Module
   ],
   declarations: [PackageDetailsComponent]
 })

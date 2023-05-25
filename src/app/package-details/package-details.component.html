@@ -94,6 +94,28 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <button [swal]="deleteSwal">Delete</button>
+                                <swal
+                                    
+                                    title="Delete?"
+                                    text="This cannot be undone"
+                                    icon="question"
+                                    [showCancelButton]="true"
+                                    [focusCancel]="true"
+                                    (confirm)="deleteFile()">
+                                </swal>
+
+                                <swal #deleteSwal title="Fill the form, rapidly" (confirm)="sendForm()">
+                                    <form [formGroup]="entryForm" class="form-horizontal">
+                                        <div class="col-md-6">
+                                            <label class="col-form-label" for="text-input">Syllebus</label>
+                                            <input type="number" formControlName="quantity" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" id="contact_no" class="form-control form-control-sm custom-form" placeholder="Contact No">
+                                        </div>
+                                    </form>
+                                    <ng-container>
+                                        Send (seconds left)
+                                    </ng-container>
+                                </swal>
 
                             </div>
                         </div>

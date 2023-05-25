@@ -26,6 +26,8 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule} from '@angular/forms' 
 // import { TruncatePipe } from './_helpers/truncate-pipe';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +56,7 @@ import { ReactiveFormsModule} from '@angular/forms'
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    SweetAlert2Module.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
