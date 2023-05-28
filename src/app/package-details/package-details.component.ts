@@ -142,7 +142,6 @@ export class PackageDetailsComponent implements OnInit {
     }
 
     confirmPayment(){
-        console.log("Confirm Payment");
         let total_quantity = 0;
         this.purchaseSyllebusList.forEach(item => {
             total_quantity = total_quantity + item.quantity
@@ -151,6 +150,10 @@ export class PackageDetailsComponent implements OnInit {
         if(total_quantity <= 0){
             this.toastr.error('Please, Add item!', 'Attention!');
             return;
+        }
+
+        let params = {
+            
         }
 
         this.toastr.success('Payment has been completed successfully!', 'Completed!');
