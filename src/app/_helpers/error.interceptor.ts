@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 //auto logout if 401 response returned from api
                 this.authenticationService.logout(window.location.hostname);
                 this.isAuthincate = false;
-                Cookie.delete('.BBLEAVEMS.Cookie', '/', window.location.hostname);
+                Cookie.delete('.BBINAEW.Cookie', '/', window.location.hostname);
                 this.toastr.warning("Unauthorized! Please do login again.", 'Attention!', { timeOut: 2000 });
                 this.currentUserDetails.next(null);
                 this.router.navigate(['/login']);

@@ -2,12 +2,10 @@ import { Injectable, ErrorHandler } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-// import 'rxjs/add/observable/of';
 import { environment } from '../../environments/environment';
 import { Cookie } from 'ng2-cookies';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-// import { User } from '@app/_models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -20,16 +18,16 @@ export class AuthenticationService {
         private router: Router
     ) {
         // this.currentUserDetails = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
-        if (Cookie.check('.BBLEAVEMS.Cookie'))
-            this.currentUserDetails = new BehaviorSubject<any>(JSON.parse(Cookie.get('.BBLEAVEMS.Cookie')));
+        if (Cookie.check('.BBINAEW.Cookie'))
+            this.currentUserDetails = new BehaviorSubject<any>(JSON.parse(Cookie.get('.BBINAEW.Cookie')));
     }
 
     public get currentUserValue(): any {
-        return Cookie.check('.BBLEAVEMS.Cookie') ? this.currentUserDetails.value : null;
+        return Cookie.check('.BBINAEW.Cookie') ? this.currentUserDetails.value : null;
     }
 
     public isAuthenticated(): boolean {
-        return Cookie.check('.BBLEAVEMS.Cookie');
+        return Cookie.check('.BBINAEW.Cookie');
     }
 
     login(params) {
@@ -53,7 +51,7 @@ export class AuthenticationService {
                     created: response.updated_at,
                 }
                 let expireDate = new Date('2030-07-19');
-                Cookie.set('.BBLEAVEMS.Cookie', JSON.stringify(user), expireDate, '/', window.location.hostname, false);
+                Cookie.set('.BBINAEW.Cookie', JSON.stringify(user), expireDate, '/', window.location.hostname, false);
                 this.currentUserDetails.next(user);
                 const res = {
                     data: user,
@@ -73,6 +71,8 @@ export class AuthenticationService {
             }
         }),
         catchError(err => {
+            //console.log(err);
+            //return err;
             return of(err);
         }));
     }
@@ -82,7 +82,7 @@ export class AuthenticationService {
             map(res => {
                 if (res.success) {
                     this.isAuthincate = false;
-                    Cookie.delete('.BBLEAVEMS.Cookie', '/', hostname);
+                    Cookie.delete('.BBINAEW.Cookie', '/', hostname);
                     this.toastr.success(res.message, 'Success!', { timeOut: 2000 });
                     this.currentUserDetails.next(null);
                     this.router.navigate(['/login']);

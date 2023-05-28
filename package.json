@@ -24,6 +24,7 @@
     "@ng-select/ng-select": "^10.0.4",
     "@sweetalert2/ngx-sweetalert2": "^12.1.0",
     "ng-block-ui": "^3.0.2",
+    "ng2-cookies": "^1.0.12",
     "ngx-bootstrap": "^10.2.0",
     "ngx-toastr": "^16.1.0",
     "node-sass": "^8.0.0",

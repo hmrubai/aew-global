@@ -1,0 +1,25 @@
+<div class="container main-container">
+  <div class="row">
+    <div class="col-lg-12">
+
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+                <div class="fadeIn first mt-3">
+                    <img src="assets/img/login.png" id="icon" width="150px" alt="Logo" />
+                </div>
+                <form [formGroup]="entryForm">
+                    <input type="email" id="login" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" class="fadeIn second" name="login" placeholder="Email">
+                    <input type="password" id="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" class="fadeIn third" name="login" placeholder="Password">
+                    <input type="submit" (click)="onLoginSubmit()" class="fadeIn fourth" value="Log In">
+                </form>
+                <div id="formFooter">
+                    <a class="underlineHover">Forgot Password?</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+  </div>
+</div>
+<block-ui></block-ui>

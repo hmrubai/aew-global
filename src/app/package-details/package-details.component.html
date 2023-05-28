@@ -70,7 +70,7 @@
                             <div class="col-md-2 cus-margin">
                                 <button class="btn btn-success btn-sm cus-padding" (click)="addItemToList()">Add</button>
                             </div>
-                            <div class="col-md-12 mt-2">
+                            <div class="col-md-12 mt-4">
                                 <div class="alert alert-info items-title-padding" role="alert">
                                     <strong> <i class="bi bi-layout-text-window-reverse"></i> Items</strong>
                                 </div>
@@ -78,7 +78,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Item</th>
+                                            <th scope="col">Syllebus</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col" class="text-center">Action</th>
                                         </tr>
@@ -92,31 +92,23 @@
                                                 <button class="btn btn-outline-danger btn-sm" (click)="deleteItemFromCart(item)"><i class="bi bi-trash"></i></button>
                                             </td>
                                         </tr>
+                                        <tr *ngIf="purchaseSyllebusList.length <= 0">
+                                            <td colspan="4">No item added</td>
+                                        </tr>
                                     </tbody>
                                 </table>
-                                <button [swal]="deleteSwal">Delete</button>
-                                <swal
-                                    
-                                    title="Delete?"
-                                    text="This cannot be undone"
-                                    icon="question"
+                                <swal #deleteSwal
+                                    title="Make Payment?"
+                                    text="Yes, I want to confirm Payment"
+                                    icon="info"
                                     [showCancelButton]="true"
                                     [focusCancel]="true"
-                                    (confirm)="deleteFile()">
+                                    (confirm)="confirmPayment()">
                                 </swal>
-
-                                <swal #deleteSwal title="Fill the form, rapidly" (confirm)="sendForm()">
-                                    <form [formGroup]="entryForm" class="form-horizontal">
-                                        <div class="col-md-6">
-                                            <label class="col-form-label" for="text-input">Syllebus</label>
-                                            <input type="number" formControlName="quantity" [ngClass]="{ 'is-invalid': submitted && f.quantity.errors }" id="contact_no" class="form-control form-control-sm custom-form" placeholder="Contact No">
-                                        </div>
-                                    </form>
-                                    <ng-container>
-                                        Send (seconds left)
-                                    </ng-container>
-                                </swal>
-
+                                <div class="d-grid gap-2 mt-5">
+                                    <button [swal]="deleteSwal" *ngIf="is_loggedin" class="btn btn-success">Make Payment</button>
+                                    <button *ngIf="!is_loggedin" (click)="loginFirst()" class="btn btn-success">Make Payment</button>
+                                </div>
                             </div>
                         </div>
                         <!--<div class="form-group row mt-3">
@@ -130,7 +122,7 @@
                         </div>-->
                     </form>
                     <!--<p class="card-text">{{ packageDetails.promotion_details }}</p> -->
-                    <a href="http://www.jquery2dotnet.com/" class="btn btn-outline-dark btn-sm mt-5">Go somewhere</a>
+                    <!--<a href="#"  class="btn btn-outline-success btn-lg btn-block mt-5">Make Payment</a>-->
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SwalPortalTargets } from '@sweetalert2/ngx-sweetalert2';
 import { environment } from '../../environments/environment';
+import { AuthenticationService } from '../_services/authentication.service';
 //import * as moment from 'moment';
 
 @Component({
@@ -16,10 +17,12 @@ import { environment } from '../../environments/environment';
 export class PackageDetailsComponent implements OnInit {
     entryForm: FormGroup;
     submitted = false;
+    returnUrl: string;
 
     @BlockUI() blockUI!: NgBlockUI;
     package_id;
     is_loaded = false;
+    is_loggedin = false;
     package_image = "assets/img/feature_image.png";
 
     packageDetails: any = null;
@@ -31,14 +34,21 @@ export class PackageDetailsComponent implements OnInit {
         private toastr: ToastrService,
         public formBuilder: FormBuilder,
         private route: ActivatedRoute,
+        private authService: AuthenticationService,
         public readonly swalTargets: SwalPortalTargets,
         private router: Router,
     ) {
         this.package_id = this.route.snapshot.paramMap.get("id");
-        console.log(this.package_id)
     }
 
     ngOnInit(): void {
+
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.is_loggedin = this.authService.isAuthenticated();
+        // if (!this.authService.isAuthenticated()) {
+        //     this.router.navigate(['/login']);
+        // }
+
         this.getPackageiDetails();
         this.getSyllabusList();
 
@@ -77,6 +87,11 @@ export class PackageDetailsComponent implements OnInit {
         }, err => {
             this.blockUI.stop();
         });
+    }
+
+    loginFirst(){
+        this.toastr.error('Please, do login first!', 'Attention!');
+        this.router.navigate(['/login']);
     }
 
     addItemToList()
@@ -126,15 +141,20 @@ export class PackageDetailsComponent implements OnInit {
         this.purchaseSyllebusList.splice(index, 1);
     }
 
-    deleteFile(){
+    confirmPayment(){
+        console.log("Confirm Payment");
+        let total_quantity = 0;
+        this.purchaseSyllebusList.forEach(item => {
+            total_quantity = total_quantity + item.quantity
+        });
 
+        if(total_quantity <= 0){
+            this.toastr.error('Please, Add item!', 'Attention!');
+            return;
+        }
+
+        this.toastr.success('Payment has been completed successfully!', 'Completed!');
     }
-
-    sendForm(){
-
-    }
-
-    
 
     // validateDateTimeFormat(value: Date) {
     //     return moment(value).format('YYYY-MM-DD');

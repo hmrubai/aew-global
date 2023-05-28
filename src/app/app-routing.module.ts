@@ -10,6 +10,18 @@ const routes: Routes = [
     data: {}
   },
   {
+    path: 'login',
+    component: DefaultLayoutComponent,
+    data: {},
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+        // canActivate: [AuthGuard]
+      }
+    ]
+  },
+  {
     path: 'package',
     component: DefaultLayoutComponent,
     data: {},
@@ -25,7 +37,7 @@ const routes: Routes = [
         // canActivate: [AuthGuard]
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
