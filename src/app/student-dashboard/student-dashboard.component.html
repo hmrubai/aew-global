@@ -51,13 +51,13 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="main_title version_2">
-                                        <div class="alert alert-success mt-4" role="alert">
+                                        <div class="alert alert-info mt-4" role="alert">
                                             <strong> <i class="bi bi-list"></i> My Corrections</strong>
+                                            <span class="btn btn-success btn-sm float-end answer-btn" (click)="submitAnswerModal.show()"> <i class="fa fa-eye"></i> Write An Answer</span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <!--<form [formGroup]="searchForm" class="col-md-12">
-
                                             <div class="row">                                              
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
@@ -90,20 +90,45 @@
                                     <div class="list_home">
                                         <ul>
                                             <li *ngFor="let item of correctionList; let i = index;">
-                                                <a [routerLink]="['/beat-correction-details',item.id]">
-                                                    <p class="title-p">{{ item.topic_title }}</p>
-                                                    <small *ngIf="item.answer_date" class="date-style float-end">Answered Date: {{item.answer_date | date: 'MMM d, y, h:mm:ss a' }}</small>
-                                                    <p *ngIf="item.tutor_id" class="title-p"> 
-                                                        <img  *ngIf="item.profile_pic" src="https://api.bacbontutors.com/V2/uploads/tutors/{{ item.profile_pic }}" class="img-fluid lazy" alt=""> Corrector: {{ item.tutor_name }}
-                                                    </p>
+                                                <a href="">
                                                     <span *ngIf="item.status == 'Not Answered'" class="ribbon bg-warning float-end">Not Answered</span>
                                                     <span *ngIf="item.status == 'Submitted'" class="ribbon status-submited float-end">Submitted</span>
                                                     <span *ngIf="item.status == 'Accepted'" class="ribbon status-accepted float-end">Accepted</span>
                                                     <span *ngIf="item.status == 'Corrected'" class="ribbon status-corrected float-end">Corrected</span>
-                                                    <small>{{item.title }}</small><br/>
+                                                    <p class="title-p">Topic: {{ item.topic_title }}</p>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <p *ngIf="item.expert_id" class="title-p"> 
+                                                                <img  *ngIf="item.expert_image" src="{{ image_base_url + item.expert_image }}" class="img-fluid lazy" alt=""> Expert: {{ item.expert_name }}
+                                                                <br/><small *ngIf="item.expert_correction_date" class="date-style">Feedback Date: {{item.expert_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <small *ngIf="item.student_correction_date" class="date-style float-end">Submission Date: {{item.student_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small><br>
+                                                            <span class="badge bg-info float-end">{{ item.package_name }} | {{item.syllabus }}</span>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <span class="see-deatils-btn mt-2"> <i class="fa fa-eye"></i> See Details</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <!--<a [routerLink]="['/beat-correction-details',item.id]">
+                                                    <p class="title-p">{{ item.topic_title }}</p>
+                                                    <small *ngIf="item.student_correction_date" class="date-style float-end">Submission Date: {{item.student_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                    
+                                                    <p *ngIf="item.expert_id" class="title-p"> 
+                                                        <img  *ngIf="item.expert_image" src="{{ image_base_url + item.expert_image }}" class="img-fluid lazy" alt=""> Corrector: {{ item.expert_name }}
+                                                        <br/><small *ngIf="item.expert_correction_date" class="date-style">Correction Date: {{item.expert_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                    </p>
+                                                    <br *ngIf="!item.expert_id" />
+                                                    <span *ngIf="item.status == 'Not Answered'" class="ribbon bg-warning float-end">Not Answered</span>
+                                                    <span *ngIf="item.status == 'Submitted'" class="ribbon status-submited float-end">Submitted</span>
+                                                    <span *ngIf="item.status == 'Accepted'" class="ribbon status-accepted float-end">Accepted</span>
+                                                    <span *ngIf="item.status == 'Corrected'" class="ribbon status-corrected float-end">Corrected</span>
+                                                    <span class="badge bg-secondary"><small>{{item.syllabus }}</small></span><br/>
                                                     <span class="see-deatils-btn mt-2"> <i class="fa fa-eye"></i> See Details</span>
                                                     <span class="answer-now-btn mt-2 float-end" *ngIf="item.status == 'Not Answered'"> <i class="fa fa-pencil"></i> Write An Answer</span>
-                                                </a>
+                                                </a>-->
                                             </li>
                                             <li *ngIf="!correctionList.length">
                                                 <a href="javascript:;">
@@ -153,5 +178,55 @@
         </div>-->
     </div>
 </div>
+
+
+
+
+<div bsModal #submitAnswerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-info modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{ modalTitle }}</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalHide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="entryForm" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="col-form-label" for="text-input">Package</label>
+                            <ng-select [items]="myPackageList" bindLabel="packages_title" (change)="getSyllebusByPaymentID()" 
+                                bindValue="payment_id" formControlName="payment_id" placeholder="Select Package"
+                                [ngClass]="{ 'is-invalid': submitted && f.payment_id.errors }" >
+                            </ng-select>
+                            <div *ngIf="submitted && f.payment_id.errors" class="error-text">
+                                <span *ngIf="f.payment_id.errors.required" class="text-danger"> Package is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label" for="text-input">Syllebus</label>
+                            <ng-select [items]="syllebusList" bindLabel="syllebus_name" 
+                                bindValue="package_type_id" formControlName="syllebus_id" placeholder="Select Syllebus"
+                                [ngClass]="{ 'is-invalid': submitted && f.syllebus_id.errors }" >
+                                <ng-template ng-option-tmp let-item="item">
+                                    <b>{{item.syllebus_name}}</b> <small class="text-success"><i> Remaining: {{ item.balance - item.consumme }}</i></small>
+                                </ng-template>
+                            </ng-select>
+                            <div *ngIf="submitted && f.syllebus_id.errors" class="error-text">
+                                <span *ngIf="f.syllebus_id.errors.required" class="text-danger"> Syllebus is required</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalHide()">Close</button>
+                <button type="button" class="btn btn-success" (click)="onFormSubmit()">{{ btnSaveText }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <block-ui></block-ui>

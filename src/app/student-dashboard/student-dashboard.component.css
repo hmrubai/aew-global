@@ -377,6 +377,10 @@ p{
     width: 40%;
 }
 
+.answer-btn{
+    margin-top: -4px !important;
+}
+
 .list_home ul li a img {
     width: 40px !important;
 }

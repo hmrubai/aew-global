@@ -24,6 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms' 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal';
 // import { TruncatePipe } from './_helpers/truncate-pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -57,6 +58,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ReactiveFormsModule,
     FormsModule,
     SweetAlert2Module.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
