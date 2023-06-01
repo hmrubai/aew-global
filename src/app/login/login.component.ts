@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
         public formBuilder: FormBuilder,
         private router: Router,
     ) {
-        // this.package_id = this.route.snapshot.paramMap.get("id");
-        // console.log(this.package_id)
+        
     }
 
     ngOnInit(): void {
@@ -45,8 +44,6 @@ export class LoginComponent implements OnInit {
         if (this.authService.isAuthenticated()) {
             this.router.navigate([this.returnUrl ? this.returnUrl : '/dashboard']);
         }
-
-        //this.getPackageList();
     }
 
     get f() {
@@ -101,24 +98,4 @@ export class LoginComponent implements OnInit {
             }
         );
     }
-
-    getPackageList() {
-        this.blockUI.start('Loading...');
-        this._service.get('open/package-list').subscribe(res => {
-            this.packageList = res.data;
-            res.data.forEach(item => {
-                if (!item.feature_image) {
-                    item.feature_image = this.package_image;
-                } else {
-                    item.feature_image = environment.imageURL + item.feature_image
-                }
-            });
-            this.blockUI.stop();
-            //this.toastr.success('Hello world!', 'Toastr fun!');
-        }, err => {
-            this.blockUI.stop();
-        });
-    }
-
-
 }

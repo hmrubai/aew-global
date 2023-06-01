@@ -22,6 +22,18 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'dashboard',
+    component: DefaultLayoutComponent,
+    data: {},
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./student-dashboard/student-dashboard.module').then(m => m.StudentDashboardModule),
+        // canActivate: [AuthGuard]
+      }
+    ]
+  },
+  {
     path: 'package',
     component: DefaultLayoutComponent,
     data: {},

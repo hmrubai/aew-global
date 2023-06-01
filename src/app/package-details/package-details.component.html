@@ -79,24 +79,33 @@
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Syllebus</th>
-                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Qty.</th>
+                                            <th scope="col">Price</th>
                                             <th scope="col" class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let item of purchaseSyllebusList; let i = index;">
                                             <th scope="row">{{ i+1 }}</th>
-                                            <td>{{ item.syllebus_name }}</td>
+                                            <td>{{ item.syllebus_name }} (৳{{ item.unit_price }})</td>
                                             <td>{{ item.quantity }}</td>
+                                            <td>{{ item.price }}</td>
                                             <td class="text-center">
                                                 <button class="btn btn-outline-danger btn-sm" (click)="deleteItemFromCart(item)"><i class="bi bi-trash"></i></button>
                                             </td>
                                         </tr>
                                         <tr *ngIf="purchaseSyllebusList.length <= 0">
-                                            <td colspan="4">No item added</td>
+                                            <td colspan="5">No item added</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                <table class="table table-bordered border-primary mt-2" *ngIf="purchaseSyllebusList.length > 0">
+                                    <tbody>
+                                        <td><strong>Total Amount =</strong></td>
+                                        <td><strong>৳ {{ total_price }} </strong></td>
+                                    </tbody>
+                                </table>
+
                                 <swal #deleteSwal
                                     title="Make Payment?"
                                     text="Yes, I want to confirm Payment"
@@ -105,9 +114,9 @@
                                     [focusCancel]="true"
                                     (confirm)="confirmPayment()">
                                 </swal>
-                                <div class="d-grid gap-2 mt-5">
-                                    <button [swal]="deleteSwal" *ngIf="is_loggedin" class="btn btn-success">Make Payment</button>
-                                    <button *ngIf="!is_loggedin" (click)="loginFirst()" class="btn btn-success">Make Payment</button>
+                                <div class="d-grid gap-2 mt-3">
+                                    <button [swal]="deleteSwal" *ngIf="is_loggedin" class="btn btn-success">Make Payment <span *ngIf="purchaseSyllebusList.length > 0">(<strong>৳{{ total_price }} </strong>)</span></button>
+                                    <button *ngIf="!is_loggedin" (click)="loginFirst()" class="btn btn-success">Make Payment <span *ngIf="purchaseSyllebusList.length > 0">(<strong>৳{{ total_price }} </strong>)</span></button>
                                 </div>
                             </div>
                         </div>

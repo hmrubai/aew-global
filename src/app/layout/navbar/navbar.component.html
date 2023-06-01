@@ -15,6 +15,7 @@
             <li><a routerLink="/package/list">Package</a></li>
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Download</a></li>
+            <li><a routerLink="/dashboard/student" *ngIf="is_authenticated">Dashboard</a></li>
             <li><a href="#">Contact Us</a></li>
             <li *ngIf="!is_authenticated"><a routerLink="/login">Login</a></li>
             <li *ngIf="is_authenticated"><a (click)="userLogout()" routerLink="/login"><i class="bi bi-power"></i> Logout</a></li>

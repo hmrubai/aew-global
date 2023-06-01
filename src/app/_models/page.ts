@@ -11,7 +11,7 @@ export class Page {
     pageTotalElements: number = 0;
 
     pages() {
-        const array = [];
+        const array: Array<any> = [];;
         for (let index = 0; index < this.totalPages; index++) {
             array.push(index)
         }

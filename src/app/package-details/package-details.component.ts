@@ -29,6 +29,8 @@ export class PackageDetailsComponent implements OnInit {
     syllebusList: Array<any> = [];
     purchaseSyllebusList: Array<any> = [];
 
+    total_price = 0;
+
     constructor(
         private _service: CommonService,
         private toastr: ToastrService,
@@ -111,6 +113,8 @@ export class PackageDetailsComponent implements OnInit {
             syllebus_id: syllebus.id,
             syllebus_name: syllebus.name,
             quantity: this.entryForm.value.quantity,
+            unit_price: syllebus.price,
+            price: this.entryForm.value.quantity * syllebus.price,
         }
 
         const index = this.purchaseSyllebusList.findIndex(item => item.syllebus_id === syllebus.id);
@@ -129,6 +133,12 @@ export class PackageDetailsComponent implements OnInit {
             }
 
             this.purchaseSyllebusList.push(params);
+            
+            this.total_price = 0;
+            this.purchaseSyllebusList.forEach(element => {
+                this.total_price = this.total_price + element.price
+            });
+
         }else{
             this.toastr.error('Item Already exist!', 'Attention!');
             return;
@@ -136,9 +146,13 @@ export class PackageDetailsComponent implements OnInit {
     }
 
     deleteItemFromCart(row){
-        console.log(row);
         const index = this.purchaseSyllebusList.findIndex(item => item.syllebus_id === row.syllebus_id);
         this.purchaseSyllebusList.splice(index, 1);
+        
+        this.total_price = 0;
+        this.purchaseSyllebusList.forEach(element => {
+            this.total_price = this.total_price + element.price
+        });
     }
 
     confirmPayment(){
@@ -152,11 +166,49 @@ export class PackageDetailsComponent implements OnInit {
             return;
         }
 
+        this.total_price = 0;
+        let submit_items: Array<any> = [];
+        this.purchaseSyllebusList.forEach(element => {
+            this.total_price = this.total_price + element.price;
+            let object = {
+                package_type_id: element.syllebus_id,
+                quantity: element.quantity
+            }
+            submit_items.push(object);
+        });
+
         let params = {
-            
+            package_id: this.package_id,
+            is_promo_applied: false,
+            promo: null,
+            payable_amount: this.total_price,
+            paid_amount: this.total_price,
+            discount_amount: 0,
+            currency: "BDT",
+            payment_method: "BKASH-BKash",
+            items: submit_items
         }
 
-        this.toastr.success('Payment has been completed successfully!', 'Completed!');
+        console.log(params)
+
+        this.blockUI.start('Submitting...');
+        this._service.post('web/make-payment', params).subscribe(
+            data => {
+                this.blockUI.stop();
+                if (data.status) {
+                    this.toastr.success(data.message, 'Success!', { timeOut: 2000 });
+                    this.purchaseSyllebusList = [];
+                    this.entryForm.reset();
+                    this.submitted = false;
+                } else {
+                    this.toastr.error(data.message, 'Error!', { timeOut: 2000 });
+                }
+            },
+            err => {
+                this.blockUI.stop();
+                this.toastr.error(err.message || err, 'Error!', { timeOut: 2000 });
+            }
+        );
     }
 
     // validateDateTimeFormat(value: Date) {
