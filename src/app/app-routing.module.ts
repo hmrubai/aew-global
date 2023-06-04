@@ -30,6 +30,11 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./student-dashboard/student-dashboard.module').then(m => m.StudentDashboardModule),
         // canActivate: [AuthGuard]
+      },
+      {
+        path: '',
+        loadChildren: () => import('./student-correction-details/student-correction-details.module').then(m => m.StudentCorrectionDetailsModule),
+        // canActivate: [AuthGuard]
       }
     ]
   },

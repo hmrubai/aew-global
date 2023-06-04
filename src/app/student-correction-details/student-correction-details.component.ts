@@ -10,16 +10,17 @@ import { Page } from '../_models/page';
 import {ModalDirective, BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 
 @Component({
-    selector: 'app-student-dashboard',
-    templateUrl: './student-dashboard.component.html',
-    styleUrls: ['./student-dashboard.component.css']
+    selector: 'app-student-correction-details',
+    templateUrl: './student-correction-details.component.html',
+    styleUrls: ['./student-correction-details.component.css']
 })
-export class StudentDashboardComponent implements OnInit {
+export class StudentCorrectionDetailsComponent implements OnInit {
     @ViewChild('submitAnswerModal') public submitAnswerModal: ModalDirective;
     modalRef?: BsModalRef;
 
     entryForm: FormGroup;
     submitted = false;
+    is_loaded = false;
 
     @BlockUI() blockUI!: NgBlockUI;
     correctionList: Array<any> = [];
@@ -27,6 +28,8 @@ export class StudentDashboardComponent implements OnInit {
     syllebusList: Array<any> = [];
     topicList: Array<any> = [];
     topicDetails: any = null;
+
+    correctionDetails: any = null;
 
     returnUrl: string;
     currentUser: any = null;
@@ -40,7 +43,7 @@ export class StudentDashboardComponent implements OnInit {
     image_base_url = environment.imageURL;
 
     package_image = "assets/img/feature_image.png";
-    package_id;
+    correction_id;
 
     page = new Page();
 
@@ -69,11 +72,14 @@ export class StudentDashboardComponent implements OnInit {
             this.toastr.error('You can\'t access student Dashboard!', 'Attention!');
             this.router.navigate(['/']);
         }
+
+        this.correction_id = this.route.snapshot.paramMap.get("correction_id");
+        console.log(this.correction_id)
     }
 
     ngOnInit(): void {
-        this.getCorrectionList();
-        this.getMyPackageList();
+        this.getCorrectionDetailsByID();
+        // this.getMyPackageList();
 
         this.entryForm = this.formBuilder.group({
             payment_id: [null, [Validators.required]],
@@ -85,6 +91,17 @@ export class StudentDashboardComponent implements OnInit {
 
     get f() {
         return this.entryForm.controls;
+    }
+
+    getCorrectionDetailsByID() {
+        this.blockUI.start('Loading...');
+        this._service.get('correction-details-by-id/' + this.correction_id).subscribe(res => {
+            this.correctionDetails = res.data;
+            this.is_loaded = true;
+            this.blockUI.stop();
+        }, err => {
+            this.blockUI.stop();
+        });
     }
 
     getCorrectionList() {
