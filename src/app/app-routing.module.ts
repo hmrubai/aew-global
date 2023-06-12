@@ -35,7 +35,12 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./student-correction-details/student-correction-details.module').then(m => m.StudentCorrectionDetailsModule),
         // canActivate: [AuthGuard]
-      }
+      },
+      {
+        path: '',
+        loadChildren: () => import('./expert-dashboard/expert-dashboard.module').then(m => m.ExpertDashboardModule),
+        // canActivate: [AuthGuard]
+      },
     ]
   },
   {

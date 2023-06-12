@@ -1,0 +1,255 @@
+
+<div class="container main-container">
+    <div class="row">
+        <!--<div class="col-lg-12">
+            <h2>Package List</h2>
+        </div>-->
+        <div class="row">
+            <div class="col-lg-12">
+                <h5 class="mb-4">Correction Dashboard</h5>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="box_general">
+                    <div class="menu-main_info_wrapper">
+                        <div class="main_info clearfix">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-primary" role="alert">
+                                        <strong> <i class="bi bi-list"></i> Menu</strong>
+                                    </div>
+                                    <div class="list_home mt-4">
+                                        <ul>
+                                            <li>
+                                                <a href="javascript:;" class="menu-a-style active-menu" [routerLink]="['/dashboard/expert']">
+                                                    <i class="fa fa-home"></i> <span> Dashbord</span>
+                                                </a>
+                                            </li>
+                                            <li class="mt-2">
+                                                <a href="javascript:;" class="menu-a-style" [routerLink]="['/']">
+                                                    <i class="fa fa-list"></i> <span> My Payment List</span>
+                                                </a>
+                                            </li>
+                                            <li class="mt-2">
+                                                <a href="javascript:;" class="menu-a-style" [routerLink]="['/']">
+                                                    <i class="fa fa-list"></i> <span> My Purchase List</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="box_general">
+                    <div class="main_info_wrapper" >
+                        <div class="main_info clearfix">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main_title version_2">
+                                        <div class="alert alert-info mt-4" role="alert">
+                                            <strong> <i class="bi bi-list"></i> My Corrections</strong>
+                                            <span class="btn btn-success btn-sm float-end answer-btn" (click)="submitAnswerModal.show()"> <i class="fa fa-eye"></i> Write An Answer</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <!--<form [formGroup]="searchForm" class="col-md-12">
+                                            <div class="row">                                              
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label ">Select Package </label>
+                                                        <ng-select (change)="onPackageChange($event)" formControlName="package_id" [clearable]="false"
+                                                            [clearOnBackspace]="false" [items]="packageList" [multiple]=false
+                                                            bindLabel="name" bindValue="id" placeholder="Select Package">
+                                                        </ng-select>
+                                                    </div>
+                                                </div>               
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label ">Select Model Exam </label>
+                                                        <ng-select (change)="onModelExamChange($event)" formControlName="model_exam_id" [clearable]="false"
+                                                            [clearOnBackspace]="false" [items]="modelExamList" [multiple]=false
+                                                            bindLabel="name" bindValue="id" placeholder="Select Model Exam">
+                                                        </ng-select>
+                                                    </div>
+                                                </div>               
+                                                <div class="col-lg-2 " *ngIf="packageList.length > 0 || modelExamList.length > 0">
+                                                    <div class="form-group mt-4 pt-2">
+                                                        <button (click)="allClear()" class="btn btn-warning "
+                                                            > Clear All
+                                                        </button>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </form>-->
+                                    </div>
+                                    <div class="list_home">
+                                        <ul>
+                                            <li *ngFor="let item of correctionList; let i = index;">
+                                                <a [routerLink]="['/dashboard/correction-details', item.id]" >
+                                                    <span *ngIf="item.status == 'Not Answered'" class="ribbon bg-warning float-end">Not Answered</span>
+                                                    <span *ngIf="item.status == 'Submitted'" class="ribbon status-submited float-end">Submitted</span>
+                                                    <span *ngIf="item.status == 'Accepted'" class="ribbon status-accepted float-end">Accepted</span>
+                                                    <span *ngIf="item.status == 'Corrected'" class="ribbon status-corrected float-end">Corrected</span>
+                                                    <p class="title-p">Topic: {{ item.topic_title }}</p>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <p *ngIf="item.expert_id" class="title-p"> 
+                                                                <img  *ngIf="item.expert_image" src="{{ image_base_url + item.expert_image }}" class="img-fluid lazy" alt=""> Expert: {{ item.expert_name }}
+                                                                <br/><small *ngIf="item.expert_correction_date" class="date-style">Feedback Date: {{item.expert_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <small *ngIf="item.student_correction_date" class="date-style float-end">Submission Date: {{item.student_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small><br>
+                                                            <span class="badge bg-info float-end">{{ item.package_name }} | {{item.syllabus }}</span>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <span class="see-deatils-btn mt-2"> <i class="fa fa-eye"></i> See Details</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <!--<a [routerLink]="['/beat-correction-details',item.id]">
+                                                    <p class="title-p">{{ item.topic_title }}</p>
+                                                    <small *ngIf="item.student_correction_date" class="date-style float-end">Submission Date: {{item.student_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                    
+                                                    <p *ngIf="item.expert_id" class="title-p"> 
+                                                        <img  *ngIf="item.expert_image" src="{{ image_base_url + item.expert_image }}" class="img-fluid lazy" alt=""> Corrector: {{ item.expert_name }}
+                                                        <br/><small *ngIf="item.expert_correction_date" class="date-style">Correction Date: {{item.expert_correction_date | date: 'MMM d, y, h:mm:ss a' }}</small>
+                                                    </p>
+                                                    <br *ngIf="!item.expert_id" />
+                                                    <span *ngIf="item.status == 'Not Answered'" class="ribbon bg-warning float-end">Not Answered</span>
+                                                    <span *ngIf="item.status == 'Submitted'" class="ribbon status-submited float-end">Submitted</span>
+                                                    <span *ngIf="item.status == 'Accepted'" class="ribbon status-accepted float-end">Accepted</span>
+                                                    <span *ngIf="item.status == 'Corrected'" class="ribbon status-corrected float-end">Corrected</span>
+                                                    <span class="badge bg-secondary"><small>{{item.syllabus }}</small></span><br/>
+                                                    <span class="see-deatils-btn mt-2"> <i class="fa fa-eye"></i> See Details</span>
+                                                    <span class="answer-now-btn mt-2 float-end" *ngIf="item.status == 'Not Answered'"> <i class="fa fa-pencil"></i> Write An Answer</span>
+                                                </a>-->
+                                            </li>
+                                            <li *ngIf="!correctionList.length">
+                                                <a href="javascript:;">
+                                                    <p class="title-p">No correction found</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="row text-center mt-5 mb-5 pb-5">
+                                        <div class="col-md-12 col-xs-12">
+                                            <nav>                                             
+                                                <!--<pagination-controls (pageChange)="setPage($event)" responsive="true"></pagination-controls>-->
+                                            </nav>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="col-md-4 mt-3 mb-5" *ngFor="let item of packageList; let i = index;">
+            <div class="card">
+                <img src="{{ item.feature_image }}" class="card-img-top" alt="package">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text"> {{ item.promotion_details | truncate:150}} </p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <small class="text-success"><strong>Limit: {{ item.limit }}</strong></small>
+                        </div>
+                        <div class="col-md-5">
+                            <small class="text-primary"><strong>Cycle: {{ item.cycle }} Days</strong></small>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-primary btn-sm details-button" [routerLink]="['/package/details', item.id]">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+    </div>
+</div>
+
+
+
+
+<div bsModal #submitAnswerModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-info modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{ modalTitle }}</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalHide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="entryForm" class="form-horizontal">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="col-form-label" for="text-input">Package</label>
+                            <ng-select [items]="myPackageList" bindLabel="packages_title" (change)="getSyllebusByPaymentID()" 
+                                bindValue="payment_id" formControlName="payment_id" placeholder="Select Package"
+                                [ngClass]="{ 'is-invalid': submitted && f.payment_id.errors }" >
+                            </ng-select>
+                            <div *ngIf="submitted && f.payment_id.errors" class="error-text">
+                                <span *ngIf="f.payment_id.errors.required" class="text-danger"> Package is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-form-label" for="text-input">Syllebus</label>
+                            <ng-select [items]="syllebusList" bindLabel="syllebus_name" (change)="getTopicList()"
+                                bindValue="package_type_id" formControlName="syllebus_id" placeholder="Select Syllebus"
+                                [ngClass]="{ 'is-invalid': submitted && f.syllebus_id.errors }" >
+                                <ng-template ng-option-tmp let-item="item">
+                                    <b>{{item.syllebus_name}}</b> <small class="text-success"><i> Remaining: {{ item.balance - item.consumme }}</i></small>
+                                </ng-template>
+                            </ng-select>
+                            <div *ngIf="submitted && f.syllebus_id.errors" class="error-text">
+                                <span *ngIf="f.syllebus_id.errors.required" class="text-danger"> Syllebus is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="col-form-label" for="text-input">Topic</label>
+                            <ng-select [items]="topicList" bindLabel="title" (change)="selectTopic()"
+                                bindValue="id" formControlName="topic_id" placeholder="Select Topic"
+                                [ngClass]="{ 'is-invalid': submitted && f.topic_id.errors }" >
+                                <ng-template ng-option-tmp let-item="item">
+                                     <b>{{item.title}} </b> <small class="text-success"><i>{{ item.category_name }} </i></small>
+                                </ng-template>
+                            </ng-select>
+                            <div *ngIf="submitted && f.topic_id.errors" class="error-text">
+                                <span *ngIf="f.topic_id.errors.required" class="text-danger"> Topic is required</span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="col-form-label col-lg-12 mt-3" for="answer">
+                                Answer  <span *ngIf="is_topic_exist"><small>(Topic: {{ topicDetails.title }})</small></span> 
+                                <span *ngIf="is_topic_exist" class="badge bg-info float-end">{{ topicDetails.category_name }} | Max Limit: {{ topicDetails.limit }}</span>
+                            </label>
+                            <textarea id="answer" formControlName="answer" [ngClass]="{ 'is-invalid': submitted && f.answer.errors }" rows="10" class="form-control" placeholder="Write an answer.."></textarea>
+                            <div *ngIf="submitted && f.answer.errors" class="invalid-feedback">
+                                <span *ngIf="f.answer.errors.required" class="text-danger"> Answer is required</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modalHide()">Close</button>
+                <button type="button" class="btn btn-success" (click)="onFormSubmit()">{{ btnSaveText }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<block-ui></block-ui>
