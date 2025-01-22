@@ -25,6 +25,8 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule} from '@angular/forms' 
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LocationStrategy, PathLocationStrategy, HashLocationStrategy } from '@angular/common';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 // import { TruncatePipe } from './_helpers/truncate-pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -62,6 +64,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
