@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageLayoutComponent } from './layout/home-page-layout/home-page-layout.component';
+import { DeleteAccountComponent } from './account-delete/account-delete.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
 
 const routes: Routes = [
@@ -41,6 +42,11 @@ const routes: Routes = [
         loadChildren: () => import('./expert-dashboard/expert-dashboard.module').then(m => m.ExpertDashboardModule),
         // canActivate: [AuthGuard]
       },
+      {
+        path: 'contact',
+        loadChildren: () => import('./contact-us/contact-us.module').then(m => m.ContactUsModule),
+        // canActivate: [AuthGuard]
+      },
     ]
   },
   {
@@ -56,6 +62,18 @@ const routes: Routes = [
       {
         path: 'details/:id',
         loadChildren: () => import('./package-details/package-details.module').then(m => m.PackageDetailsModule),
+        // canActivate: [AuthGuard]
+      }
+    ]
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    data: {},
+    children: [
+      {
+        path: 'delete-account',
+        loadChildren: () => import('./account-delete/account-delete.module').then(m => m.DeleteAccountModule),
         // canActivate: [AuthGuard]
       }
     ]

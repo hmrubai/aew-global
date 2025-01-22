@@ -11,6 +11,7 @@ import { ServiceFlowComponent } from './home/service-flow/service-flow.component
 import { PackagesComponent } from './home/packages/packages.component';
 import { ReviewComponent } from './home/review/review.component';
 import { FaqComponent } from './home/faq/faq.component';
+// import { ContactUsComponent } from './contact-us/contact-us.component';
 import { DownloadComponent } from './home/download/download.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { DefaultLayoutComponent } from './layout/default-layout/default-layout.component';
@@ -27,6 +28,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LocationStrategy, PathLocationStrategy, HashLocationStrategy } from '@angular/common';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+// import { DeleteAccountComponent } from './account-delete/account-delete.component';
+
 // import { TruncatePipe } from './_helpers/truncate-pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -46,6 +49,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FooterComponent,
     DefaultLayoutComponent,
     HomePageLayoutComponent,
+    // DeleteAccountComponent
     // TruncatePipe
   ],
   imports: [
